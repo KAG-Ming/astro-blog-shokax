@@ -45,7 +45,7 @@ if (themeConfig.diagnostics?.suppressFsWatcherMaxListenersWarning !== false) {
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://preview.astro.kaitaku.xyz",
+  site: "https://blog.onirexus.com",
   trailingSlash: "always",
   build: {
     format: "directory",
@@ -148,5 +148,8 @@ export default defineConfig({
     queuedRendering: {
       enabled: true,
     },
+  },
+  devToolbar: {
+    enabled: false,
   },
 });

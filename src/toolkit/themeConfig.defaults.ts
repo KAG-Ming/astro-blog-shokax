@@ -148,7 +148,14 @@ export const DEFAULT_THEME_CONFIG: ShokaXThemeConfig = {
   layout: {
     mode: "three-column",
     rightSidebar: {
-      order: ["announcement", "search", "calendar", "recentMoments", "randomPosts", "tagCloud"],
+      order: [
+        "announcement",
+        "search",
+        "calendar",
+        "recentMoments",
+        "randomPosts",
+        "tagCloud",
+      ],
       announcement: true,
       search: true,
       calendar: true,

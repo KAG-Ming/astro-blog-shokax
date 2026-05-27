@@ -24,7 +24,7 @@
     "@astrojs/check": "0.9.9",
     "@astrojs/compiler-rs": "^0.1.10",
     "@astrojs/mdx": "5.0.4",
-    "@astrojs/rss": "4.0.18",
+    "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "3.7.2",
     "@astrojs/svelte": "8.1.0",
     "@astrojs/ts-plugin": "1.10.7",
