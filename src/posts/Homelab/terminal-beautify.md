@@ -6,6 +6,7 @@ tags:
   - VPS
 author: Onirexus
 date: 2026-05-27 06:12:55
+cover: ../../assets/images/homelab/terminal-beautify-cover.webp
 ---
 
 The default Linux terminal prompt is often plain and inconvenient, making terminal beautification a highly rewarding task. While most online tutorials focus heavily on `oh-my-zsh`, running complex Bash scripts under Zsh can occasionally introduce syntax bugs. That’s why I stick to Bash. My lightweight yet powerful combo of choice is `starship` + `ble.sh`.

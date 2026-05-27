@@ -6,6 +6,7 @@ tags:
   - VPS
 author: Onirexus
 date: 2026-05-27 05:46:04
+cover: ../../assets/images/homelab/vps-auto-backup-cover.png
 ---
 
 Until recently, my backup routine was simple: tarring files and using `rclone copy` to push them to Google Drive. However, I recently learned that directly tarring an active database may cause data corruption. While the safest workaround is to stop the service before performing the backup, that feels a bit clunky and disruptive. To solve this, I modified my script for a cleaner approach.
