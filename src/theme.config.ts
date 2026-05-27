@@ -188,7 +188,7 @@ export default defineConfig({
     selectedCategories: [
       {
         name: "Computer Science",
-        cover: "./src/assets/images/cs/cs-cover.jpg",
+        cover: "https://s3.amazonaws.com/msoe/files/callouts/wide_sml_computer-science-landing-page.jpg",
       },
       {
         name: "Academics",
@@ -216,7 +216,7 @@ export default defineConfig({
       search: true,
       calendar: false,
       recentMoments: true,
-      randomPosts: true,
+      randomPosts: false,
       tagCloud: true,
     },
   },
