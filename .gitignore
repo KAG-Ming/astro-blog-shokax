@@ -38,3 +38,6 @@ test-results/
 playwright-report/
 .playwright-mcp
 .lycheecache
+
+.obsidian/
+/_templates/

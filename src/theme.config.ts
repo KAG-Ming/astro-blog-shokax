@@ -50,7 +50,7 @@ export default defineConfig({
       href: "/moments/",
       icon: "i-ri-chat-quote-line",
     },
-{
+  {
       text: "Tools",
       href: "javascript:void(0);",
       icon: "i-ri-tools-line",
