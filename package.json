@@ -49,6 +49,7 @@
     "es-toolkit": "^1.46.1",
     "i18next": "^26.0.8",
     "katex": "^0.16.45",
+    "marked": "^18.0.4",
     "mouse-firework": "^0.2.0",
     "nyx-player": "^0.1.1",
     "pagefind": "^1.5.2",
