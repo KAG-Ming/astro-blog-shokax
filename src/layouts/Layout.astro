@@ -149,6 +149,7 @@ const widgetPosts = createWidgetPosts(posts);
 import CodeBlock from "@/components/CodeBlock.svelte";
 import ImageZoom from "@/components/ImageZoom.svelte";
 import SearchPage from "@/components/search/SearchPage.svelte";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -158,12 +159,40 @@ import SearchPage from "@/components/search/SearchPage.svelte";
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
-
+    
+    <link rel="canonical" href={canonicalURL} />
+    
     <slot name="head" />
 
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
 
     <title>{pageTitle}</title>
+
+    {
+      postMeta ? (
+        // 如果是具体的博客文章页，渲染 BlogPosting 标记
+        <script type="application/ld+json" is:inline set:html={JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": pageTitle,
+          "url": canonicalURL.toString(),
+          "datePublished": postMeta.date ? new Date(postMeta.date).toISOString() : undefined,
+          "author": {
+            "@type": "Person",
+            "name": sidebarConfig.author || "Onirexus"
+          }
+        })} />
+      ) : (
+        // 如果是首页、分类、标签等聚合页，降级渲染 WebSite 标记，防止 Google 报错
+        <script type="application/ld+json" is:inline set:html={JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": siteName,
+          "url": Astro.site?.toString(),
+          "description": sidebarConfig.description || "Onirexus' Personal Blog"
+        })} />
+      )
+    }
   </head>
   <body
     data-visibility-title-config={JSON.stringify(visibilityTitleConfig)}
