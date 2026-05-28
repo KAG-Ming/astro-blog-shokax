@@ -201,4 +201,39 @@ export async function GET(context: APIContext) {
 ```
 
 The subscription URL is `https://yourdomain.com/rss.xml`.
-## TODO
+## 2. Waline Comments
+The official docs is here: [Waline \| Waline](https://waline.js.org/)
+
+At first, I considered using the Vercel + Neon setup mentioned in the quick start guide since it's very convenient. However, a persistent and mysterious 500 error kept bothering me no matter what I tried. As a result, I switched to a self-hosted plan. But soon after, other annoying bugs occurred, leading me to suspect there might be issues with their official JS scripts or Docker images.
+
+The latest official docker image version `1.40.0` has some bugs, so I downgraded to `1.39.3`:
+```yaml
+services:
+  waline:
+    container_name: waline
+    image: lizheming/waline:1.39.3
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:8360:8360
+    volumes:
+      - ./data:/app/data
+    environment:
+      TZ: 'Asia/Shanghai'
+      SQLITE_PATH: '/app/data'
+      JWT_TOKEN: 'your token'
+      SITE_NAME: 'waline'
+      SITE_URL: 'waline site url'
+      SECURE_DOMAINS: 'walinedomain.com, blogdomain.com'
+      AUTHOR_EMAIL: 'mail@example.com'
+```
+
+Next, I set up an Nginx reverse proxy and configured Cloudflare Origin Certificates, then filled in the comment fields in the Shokax configuration file.
+
+However, if you stop here, you'll encounter a `no such table: wl_Comment` error when attempting to post a comment. You can fix this by manually downloading the official SQLite template:
+```shell
+sudo curl -L -o ./data/waline.sqlite https://github.com/walinejs/waline/raw/main/assets/waline.sqlite
+
+sudo chmod 666 ./data/waline.sqlite
+```
+
+Unfortunately, I later found that the /ui/ page failed to render, displaying only a blank screen. Since I couldn't resolve this issue, I decided to give up on the web dashboard and now manually manage the comments directly inside the SQLite database instead.
