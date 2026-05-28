@@ -1,0 +1,5 @@
+# https://blog.onirexus.com/robots.txt
+User-agent: *
+Allow: /
+Disallow: /_astro/
+Sitemap: https://blog.onirexus.com/sitemap-index.xml
