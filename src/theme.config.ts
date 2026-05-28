@@ -145,10 +145,10 @@ export default defineConfig({
     recentCommentsLimit: 10,
   },
   comments: {
-    enable: false,
+    enable: true,
     waline: {
-      serverURL: "",
-      lang: "zh-CN",
+      serverURL: "https://waline.reimu.qzz.io",
+      lang: "en",
     },
   },
   hyc: {
