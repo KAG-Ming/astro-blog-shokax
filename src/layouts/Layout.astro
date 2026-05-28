@@ -165,6 +165,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
 
     <title>{pageTitle}</title>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": pageTitle,
+  "url": new URL(Astro.url.pathname, Astro.site).toString(),
+  "author": {
+    "@type": "Person",
+    "name": sidebarConfig.author || "Onirexus" // 自动读取你 theme.config.ts 里的作者名
+  }
+})} />
+
   </head>
   <body
     data-visibility-title-config={JSON.stringify(visibilityTitleConfig)}
