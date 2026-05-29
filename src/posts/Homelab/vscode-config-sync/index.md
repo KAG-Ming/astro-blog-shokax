@@ -6,7 +6,8 @@ tags:
   - vscode
 author: Onirexus
 date: 2026-05-27 04:59:55
-cover: ../../assets/images/homelab/vscode-config-sync-cover.jpg
+cover: ./cover.jpg
+description: How to sync VSCode Remote-SSH and code-server's config.
 ---
 
 I use VSCode Remote-SSH to connect to VPS to code, so that I can use the same environment in a new PC. However, a problem arises when I only have a tablet on hand, as there is no desktop version of VSCode available for tablets. To bridge this gap, I turned to the `code-server` project, which provides a browser-based VSCode client. Naturally, my next step was to sync my configurations between Remote-SSH and code-server.

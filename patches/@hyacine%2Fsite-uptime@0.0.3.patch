@@ -1,0 +1,60 @@
+diff --git a/node_modules/@hyacine/site-uptime/.bun-tag-62072c11509d2fd1 b/.bun-tag-62072c11509d2fd1
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@hyacine/site-uptime/.bun-tag-f394a4a8c80d5919 b/.bun-tag-f394a4a8c80d5919
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/src/index.ts b/src/index.ts
+index e56845588d27783eafc0d0c293f7c07c6e57f228..3626eda4b8b85d6dd1bfa188b6ff8ad0273cca14 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -10,7 +10,7 @@ export interface SiteUptimeOptions {
+ 
+   /**
+    * 自定义前缀文本，默认为 "该站点已经存在了"
+-   * @default "该站点已经存在了"
++   * @default "Site uptime: "
+    */
+   prefixText?: string;
+ }
+@@ -36,7 +36,7 @@ export default (options: SiteUptimeOptions): PluginManifest => {
+         name: "site-uptime-runtime",
+         options: {
+           siteCreatedAt: options.siteCreatedAt,
+-          prefixText: options.prefixText || "该站点已经存在了",
++          prefixText: options.prefixText || "Site uptime: ",
+         },
+       },
+     ],
+diff --git a/src/runtime.ts b/src/runtime.ts
+index 1e8f2a3c88505ffb33fa8bc954178c693d77df08..92679fabe007509da703002f9697087499871b98 100644
+--- a/src/runtime.ts
++++ b/src/runtime.ts
+@@ -17,7 +17,7 @@ function calculateUptime(createdAt: Date, prefixText: string): string {
+   const diff = now.getTime() - createdAt.getTime();
+ 
+   if (diff < 0) {
+-    return `${prefixText} 0秒`;
++    return `${prefixText} 0 Seconds`;
+   }
+ 
+   // 计算各个时间单位
+@@ -38,12 +38,12 @@ function calculateUptime(createdAt: Date, prefixText: string): string {
+   // 构建时间字符串
+   const parts: string[] = [];
+ 
+-  if (years > 0) parts.push(`${years}年`);
+-  if (remainingMonths > 0) parts.push(`${remainingMonths}月`);
+-  if (remainingDays > 0) parts.push(`${remainingDays}日`);
+-  if (remainingHours > 0) parts.push(`${remainingHours}小时`);
+-  if (remainingMinutes > 0) parts.push(`${remainingMinutes}分钟`);
+-  if (remainingSeconds > 0 || parts.length === 0) parts.push(`${remainingSeconds}秒`);
++  if (years > 0) parts.push(`${years} y `);
++  if (remainingMonths > 0) parts.push(`${remainingMonths} m `);
++  if (remainingDays > 0) parts.push(`${remainingDays} d `);
++  if (remainingHours > 0) parts.push(`${remainingHours} h `);
++  if (remainingMinutes > 0) parts.push(`${remainingMinutes} m `);
++  if (remainingSeconds > 0 || parts.length === 0) parts.push(`${remainingSeconds} s `);
+ 
+   return `${prefixText} ${parts.join("")}`;
+ }

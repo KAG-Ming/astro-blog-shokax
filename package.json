@@ -95,5 +95,8 @@
     "onnxruntime-node",
     "protobufjs",
     "sharp"
-  ]
+  ],
+  "patchedDependencies": {
+    "@hyacine/site-uptime@0.0.3": "patches/@hyacine%2Fsite-uptime@0.0.3.patch"
+  }
 }

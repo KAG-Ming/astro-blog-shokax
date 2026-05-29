@@ -8,6 +8,7 @@ tags:
   - astro
 author: Onirexus
 date: 2026-05-28 00:05:02
+description: Record troubleshooting of migrating shokax-theme blog from Hexo to Astro.
 ---
 Seeing that [shokaX-hexo](https://docs.shokax.kaitaku.xyz/) is planning to migrate to Astro, I decided to migrate my own blog as well. Astro offers superior performance compared to Hexo and represents modern best practices, whereas Hexo is becoming a bit outdated.
 
@@ -183,7 +184,7 @@ export async function GET(context: APIContext) {
 
   return rss({
     title: "Onirexus' Blog",
-    description: 'Out of Office',
+    description: '',
 
     site: context.site ?? 'https://blog.onirexus.com',
 

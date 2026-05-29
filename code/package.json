@@ -1,0 +1,35 @@
+{
+  "name": "@hyacine/site-uptime",
+  "version": "0.0.3",
+  "description": "A Hyacine plugin that displays site uptime in footer-status",
+  "keywords": [
+    "footer",
+    "hyacine",
+    "plugin",
+    "uptime"
+  ],
+  "files": [
+    "dist",
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "bunx --bun oxlint --type-aware --type-check . --fix",
+    "format": "bunx oxfmt ."
+  },
+  "dependencies": {
+    "@hyacine/core": "0.0.3",
+    "@hyacine/helper": "0.0.3"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5"
+  }
+}

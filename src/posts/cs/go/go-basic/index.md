@@ -7,5 +7,7 @@ tags:
   - go
 categories:
   - Computer Science
-cover: ../../assets/images/cs/go-basic-cover.png
+  - go
+cover: ./cover.png
+description: Basic knowledge of Go-lang
 ---

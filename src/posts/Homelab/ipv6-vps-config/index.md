@@ -7,7 +7,8 @@ tags:
   - IPV6
 author: Onirexus
 date: 2026-05-27 20:35:06
-cover: ./images/ipv6-vps-cover.jpg
+cover: ./cover.jpg
+descriptive: Four practical ways to enable IPV6-only VPS to have IPv4 access.
 ---
 Some VPSs only offer IPv6 access, which introducing several routing and connectivity challenges. Below are four practical methods to configure an IPv6-only VPS to grant it seamless IPv4 outbound access.
 

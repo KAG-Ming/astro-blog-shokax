@@ -7,6 +7,7 @@ tags:
   - hexo
 categories:
   - Homelab
+description: Record troubleshooting when I configure hexo-shokax theme.
 ---
 During the process of configuring my Hexo blog, I ran into a few standard hurdles. Inspired by several troubleshooting posts [shokaX 主题插件配置踩坑指北](https://yuan-uyume.github.io/2023/08/27/zhibei/shokaX%E4%B8%BB%E9%A2%98%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE%E8%B8%A9%E5%9D%91%E6%8C%87%E5%8C%97/) , I decided to compile my own solutions and workarounds to save others some time.
 

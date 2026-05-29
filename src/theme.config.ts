@@ -88,8 +88,7 @@ export default defineConfig({
   ],
   brand: {
     title: "Onirexus' Blog",
-    subtitle: "E Lucevan Le Stelle.",
-    logo: "✨",
+    subtitle: "Hic sunt leones",
   },
   cover: {
     enable: true,
@@ -102,7 +101,7 @@ export default defineConfig({
   },
   sidebar: {
     author: "Onirexus",
-    description: " ₍˄·͈༝·͈˄*₎◞ ̑̑",
+    description: "A 1-IP blog tracking my tinkering logs, life, and thoughts.",
     social: {
       github: {
         url: "https://github.com/KAG-Ming",
@@ -180,19 +179,16 @@ export default defineConfig({
   },
   visibilityTitle: {
     enable: false,
-    leaveTitle: "👀 你先忙，我等你回来~",
-    returnTitle: "🎉 欢迎回来！",
-    restoreDelay: 3000,
   },
   home: {
     selectedCategories: [
       {
         name: "Computer Science",
-        cover: "https://s3.amazonaws.com/msoe/files/callouts/wide_sml_computer-science-landing-page.jpg",
+        cover: "/cs-cover.avif",
       },
       {
         name: "Academics",
-        cover: "./src/assets/images/academics/academics-cover.jpg",
+        cover: "/academics-cover.jpg",
       },
     ],
     pageSize: 5,
@@ -215,7 +211,7 @@ export default defineConfig({
       announcement: true,
       search: true,
       calendar: false,
-      recentMoments: true,
+      recentMoments: false,
       randomPosts: false,
       tagCloud: true,
     },
