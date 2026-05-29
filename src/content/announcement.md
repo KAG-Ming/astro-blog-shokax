@@ -6,7 +6,7 @@ Welcome! You are currently browsing from
 (IP: <span id="visitor-ip" style="color: #10b981; font-weight: bold;">Loading...</span>).
 
 <script>
-  fetch('https://ipapi.is/')
+  fetch('https://ipapi.co/json/')
     .then(res => res.json())
     .then(data => {
       document.getElementById('visitor-geo').innerText = `${data.city}, ${data.country_name}`;
