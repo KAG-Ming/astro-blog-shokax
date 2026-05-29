@@ -1,13 +1,9 @@
 ---
-title: Exchange Rules
+title: Link Exchange Policy
 ---
 
-We welcome link exchange requests! Please confirm the following criteria before submitting:
-
-- Clean Content: The site content must be compliant with laws and regulations, and free of illegal, infringing, or malicious information.
-
-- Stable Accessibility: The site must be consistently accessible, avoiding frequent redirects or prolonged downtime.
-
-- Originality Prioritized: Preference is given to sites with original or high-quality content; scrapers/content farms are not accepted.
-
-- Reciprocity: Please add a link to our site on your platform before submitting your application.
+I'm always happy to exchange links! Please make sure your site checks the following boxes:
+- Appropriate Content: Legal, safe, and free of malicious or infringing material.
+- Good Uptime: The site should be regularly online and stable.
+- Original Content: Focused on original posts. No scrapers or content farms.
+- Backlink First: Please add my link to your site before applying.

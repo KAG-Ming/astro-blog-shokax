@@ -101,7 +101,7 @@ export default defineConfig({
   },
   sidebar: {
     author: "Onirexus",
-    description: "A 1-IP blog tracking my tinkering logs, life, and thoughts.",
+    description: "An 1-IP blog tracking my tinkering logs, life, and thoughts.",
     social: {
       github: {
         url: "https://github.com/KAG-Ming",

@@ -11,7 +11,7 @@ export async function GET(context: APIContext) {
 
   return rss({
     title: "Onirexus' Blog",
-    description: 'A 1-IP blog tracking my tinkering logs, life, and thoughts.',
+    description: 'An 1-IP blog tracking my tinkering logs, life, and thoughts.',
 
     site: context.site ?? 'https://blog.onirexus.com',
 
