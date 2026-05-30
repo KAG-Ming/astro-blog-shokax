@@ -42,5 +42,7 @@ playwright-report/
 .obsidian/
 /_templates/
 
-README.md
-README_zh-cn.md
+# Syncthing local sync metadata
+.stignore
+.stfolder
+.stversions/
