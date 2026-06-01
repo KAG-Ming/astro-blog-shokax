@@ -42,13 +42,13 @@ Hexo articles reside in `source/_posts/`, while Astro stores them in `src/posts`
 
 After doing this, you may encounter several build errors. While most solutions can be found in the official docs, some undocumented issues I occurred are recorded below:
 
-## 1. Front-matter: Cover, Tags & Categories
+## 2.1 Front-matter: Cover, Tags & Categories
 
 Cover can't be a remote URL. You can download the images and use the relative path. Or ShokaX may add this feature in the future.
 
 And Tags and Categories must be wrapped by `[]` now.
 
-## 2. Callouts Only Render In .mdx
+## 2.2 Callouts Only Render In .mdx
 
 If you use callouts in a plain .md file, the styling and effects will not render properly. Use .mdx extensions for these files.
 
@@ -60,7 +60,7 @@ While editing this configuration file, you might encounter unexpected build erro
 
 Most configurations are detailed in the official documentation, so I will only highlight the unlisted ones here:
 
-## 1. Disabling Navigation Bar Link Actions
+## 3.1 Disabling Navigation Bar Link Actions
 
 The official docs mention that href cannot be null. To prevent a parent navigation menu from triggering a redirect when clicked, configure it with `href: "javascript:void(0);"`. Here is an example of a plain drop-down menu:
 
@@ -92,14 +92,14 @@ The official docs mention that href cannot be null. To prevent a parent navigati
     },
 ```
 
-## 2. Changing Favicon
+## 3.2 Changing Favicon
 
 To replace the default favicon, create a `public` folder and place your `favicon.svg` inside it. If your icon is not in SVG format, you can either convert it or replace the filename and update the corresponding link tag in `src/layouts/Layout.astro`:
 ```html
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 ```
 
-## 3. Modifying the Site Establishment Time
+## 3.3 Modifying the Site Establishment Time
 
 In `hyacine.plugin.ts` edit `siteCreatedAt`:
 ```ts
@@ -163,7 +163,7 @@ git add . && git commit && git push -u origin main
 
 # 6. Extensions
 
-## 1. RSS
+## 6.1 RSS
 Add this extension:
 ```shell
 bun add @astrojs/rss
@@ -202,7 +202,7 @@ export async function GET(context: APIContext) {
 ```
 
 The subscription URL is `https://yourdomain.com/rss.xml`.
-## 2. Waline Comments
+## 6.2 Waline Comments
 The official docs is here: [Waline \| Waline](https://waline.js.org/)
 
 At first, I considered using the Vercel + Neon setup mentioned in the quick start guide since it's very convenient. However, a persistent and mysterious 500 error kept bothering me no matter what I tried. As a result, I switched to a self-hosted plan. But soon after, other annoying bugs occurred, leading me to suspect there might be issues with their official JS scripts or Docker images.

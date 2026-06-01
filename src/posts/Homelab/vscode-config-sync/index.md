@@ -12,11 +12,11 @@ description: How to sync VSCode Remote-SSH and code-server's config.
 
 I use VSCode Remote-SSH to connect to VPS to code, so that I can use the same environment in a new PC. However, a problem arises when I only have a tablet on hand, as there is no desktop version of VSCode available for tablets. To bridge this gap, I turned to the `code-server` project, which provides a browser-based VSCode client. Naturally, my next step was to sync my configurations between Remote-SSH and code-server.
 
-# Installing VSCode Remote-SSH
+# 1. Installing VSCode Remote-SSH
 
 Install Remote-SSH extension in local VSCode and click the blue button in the bottom left corner to install the VSCode server on your VPS.
 
-# Installing Code-server
+# 2. Installing Code-server
 
 To make syncing the environments easier, I chose a native installation over Docker. Simply run the official installation script.
 
@@ -24,7 +24,7 @@ To make syncing the environments easier, I chose a native installation over Dock
 curl -fsSL https://code-server.dev/install.sh | sh
 ```
 
-# Linking Extensions and Configurations
+# 3. Linking Extensions and Configurations
 
 ```bash
 mkdir -p ~/.local/share/code-server/User/
@@ -41,7 +41,7 @@ ln -s ~/.vscode-server/data/User/snippets ~/.local/share/code-server/User/snippe
 
 In practice, I found that the settings.json formats between the two are slightly incompatible. However, since I rarely change these configurations, I just ignored this minor issue.
 
-# Using the Microsoft Official Marketplace
+# 4. Using the Microsoft Official Marketplace
 
 First, edit environment variables:
 
@@ -63,7 +63,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart code-server@$USER
 ```
 
-# Configuring Code-server
+# 5. Configuring Code-server
 
 Open the configuration file：
 
@@ -87,7 +87,7 @@ sudo systemctl enable --now code-server@$USER
 sudo systemctl status code-server@$USER
 ```
 
-# Setting Up the Nginx Reverse Proxy
+# 6. Setting Up the Nginx Reverse Proxy
 
 I'm using a Cloudflare origin certificate, stored in `/etc/nginx/ssl/example_com`.
 
