@@ -71,6 +71,7 @@
   },
   "devDependencies": {
     "@iconify-json/ri": "^1.2.10",
+    "@iconify-json/tabler": "^1.2.35",
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.59.1",
     "@shikijs/colorized-brackets": "^4.0.2",

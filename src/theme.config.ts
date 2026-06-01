@@ -50,9 +50,10 @@ export default defineConfig({
       href: "/moments/",
       icon: "i-ri-chat-quote-line",
     },
-  {
+    {
       text: "Tools",
-      href: "javascript:void(0);",
+      // href: "javascript:void(0);",
+      href: "",
       icon: "i-ri-tools-line",
       dropbox: {
         enable: true,
@@ -85,6 +86,11 @@ export default defineConfig({
       href: "https://blog.onirexus.com/rss.xml",
       icon: "i-ri-rss-line",
     },
+    {
+      text: "DN42",
+      href: "/posts/homelab/dn42-info/",
+      icon: "i-ri-network-line",
+    },
   ],
   brand: {
     title: "Onirexus' Blog",
@@ -112,6 +118,11 @@ export default defineConfig({
         url: "https://t.me/Onirexus",
         icon: "i-ri-telegram-2-line",
         color: "#0088cc",
+      },
+      matrix: {
+        url: "https://matrix.to/#/@onyx9766:matrix.org",
+        icon: "i-tabler-brand-matrix",
+        color: "#0BBD8C",
       },
       email: {
         url: "mailto:topaz@onirexus.com",
@@ -242,7 +253,8 @@ export default defineConfig({
         title: "優萌初華",
         desc: "琉璃的医学 & 编程笔记",
         author: "霜月琉璃",
-        avatar: "https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg",
+        avatar:
+          "https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg",
         color: "#e9546b",
       },
       {
