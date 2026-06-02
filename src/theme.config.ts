@@ -11,11 +11,6 @@ export default defineConfig({
       icon: "i-ri-home-line",
     },
     {
-      text: "About",
-      href: "/about/",
-      icon: "i-ri-user-3-line",
-    },
-    {
       text: "Posts",
       href: "/random/",
       icon: "i-ri-quill-pen-line",
@@ -41,19 +36,28 @@ export default defineConfig({
       },
     },
     {
-      text: "Friends",
-      href: "/friends/",
-      icon: "i-ri-link",
-    },
-    {
       text: "Moments",
       href: "/moments/",
       icon: "i-ri-chat-quote-line",
     },
     {
+      text: "About",
+      href: "/about/",
+      icon: "i-ri-user-3-line",
+    },
+    {
+      text: "Friends",
+      href: "/friends/",
+      icon: "i-ri-link",
+    },
+    {
+      text: "Statistics",
+      href: "/statistics/",
+      icon: "i-ri-bar-chart-box-line",
+    },
+    {
       text: "Tools",
-      // href: "javascript:void(0);",
-      href: "",
+      href: "#",
       icon: "i-ri-tools-line",
       dropbox: {
         enable: true,
@@ -77,24 +81,15 @@ export default defineConfig({
       },
     },
     {
-      text: "Statistics",
-      href: "/statistics/",
-      icon: "i-ri-bar-chart-box-line",
-    },
-    {
       text: "RSS",
-      href: "https://blog.onirexus.com/rss.xml",
+      href: "/rss.xml",
       icon: "i-ri-rss-line",
-    },
-    {
-      text: "DN42",
-      href: "/posts/homelab/dn42-info/",
-      icon: "i-ri-network-line",
     },
   ],
   brand: {
     title: "Onirexus' Blog",
     subtitle: "Hic sunt leones",
+    logo: "",
   },
   cover: {
     enable: true,
@@ -129,6 +124,11 @@ export default defineConfig({
         icon: "i-ri-mail-line",
         color: "#FF0233",
       },
+      rss: {
+        url: "/rss.xml",
+        icon: "i-ri-rss-line",
+        color: "#F87900",
+      },
     },
   },
   footer: {
@@ -141,8 +141,6 @@ export default defineConfig({
     powered: false,
     icp: {
       enable: false,
-      icpnumber: "津ICP备2022001375号",
-      icpurl: "https://beian.miit.gov.cn/",
     },
   },
   tagCloud: {
