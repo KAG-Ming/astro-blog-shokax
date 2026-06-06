@@ -10,7 +10,7 @@ description: My Latin learning notes.
 draft: false
 cover: ./cover.jpg
 ---
-# Verb Conjugations
+## Verb Conjugations
 Latin verbs change their endings on the subject.
 - 1st person singular: -o
 - 2nd person singular: -is/-es
@@ -24,25 +24,25 @@ Latin verbs change their endings on the subject.
 | tu      | studes  | scribis  | legis  | dormis  | laboras  | doces  | vides  |
 | (it)    | studet  | scribit  | legit  | dormit  | laborat  | docet  | videt  |
 
-# Sentence Structure
+## Sentence Structure
 Latin uses word endings to show that role a noun plays in a sentence. **Object: -m**
 *eg:*
 - Magistra discipulam docet.
 - Poeta epistulam scribit.
 
-# Possession
+## Possession
 To show ownership or relationships("of"), Latin changes the ending to -ae.
 *eg:*
 - Discipulae magistra=Magistra discipulae
 - Discipula epistulam magistrae scribit.
 
-# Adjectives and Noun-adjectives
+## Adjectives and Noun-adjectives
 *eg:*
 - Longam epistulam scribo.
 - Magistra magnam discipulam docet.
 - Magistra magna discipulam docet.
 
-# Conjunctions and Adverbs
+## Conjunctions and Adverbs
 - et=and
 - sed=but
 - quod=because

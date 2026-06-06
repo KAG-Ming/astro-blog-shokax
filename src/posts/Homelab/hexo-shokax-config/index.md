@@ -11,7 +11,7 @@ description: Record troubleshooting when I configure hexo-shokax theme.
 ---
 During the process of configuring my Hexo blog, I ran into a few standard hurdles. Inspired by several troubleshooting posts [shokaX 主题插件配置踩坑指北](https://yuan-uyume.github.io/2023/08/27/zhibei/shokaX%E4%B8%BB%E9%A2%98%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE%E8%B8%A9%E5%9D%91%E6%8C%87%E5%8C%97/) , I decided to compile my own solutions and workarounds to save others some time.
 
-# 1. ShokaX Default Markdown Settings Filtering HTML Tags
+## ShokaX Default Markdown Settings Filtering HTML Tags
 
 Ref：[Hexo-Shoka 主题拓展、美化及常见问题详解 - Hexo - 博客 \| starsei = 猫不吃鱼 = 夜色难免黑凉，前行必有曙光。](http://blog.starsei.com/blog/hexo/shoka/)
 In the official ShokaX documentation, the default Markdown renderer configuration looks like this:
@@ -62,7 +62,7 @@ Alternatively, you can simply change the html configuration option to true.
 
 Note: Characters like {} are reserved tokens in Hexo's Markdown engine. If you want to display them as plain text without triggering rendering errors, replace them with their HTML entities: &#123; and &#125;.
 
-# 2. Live2D
+## Live2D
 
 I use this: [GitHub - EYHN/hexo-helper-live2d: Add the Sseexxyyy live2d to your hexo!](https://github.com/EYHN/hexo-helper-live2d)
 This particular plugin provides minimal, lightweight functionality. If you are looking for advanced interactive features, you might want to look into alternatives like live2d-widget.
@@ -108,13 +108,13 @@ live2d:
     hitokoto: true
 ```
 
-# 3. Integrating the hexo-graph Plugin
+## Integrating the hexo-graph Plugin
 
 hexo-graph generates beautiful visual analytics for your blog, capturing post heatmaps, monthly frequency, category distributions, and tag weight clouds. It functions similarly to the official hexo-shokax-posts-statistics add-on but scales with a sleeker ECharts design aesthetic.
 
 You can grab the setup documentation directly from their source repository [GitHub - codepzj/hexo-graph: hexo-graph，一个基于 echarts，集成博客热力图，博客月份统计图，分类统计图，标签统计图的多元化插件。](https://github.com/codepzj/hexo-graph)
 
-# 4. Algolia
+## Algolia
 
 Here is a quick tip regarding a rookie mistake I made during initial setup: when you register a fresh Algolia account, you are required to complete their "Get Started" onboarding sequence before unlocking API control. Instead of pulling your hair out trying to import custom production schemas, simply select their "load example data" option to bypass the wizard instantly.
 
@@ -139,12 +139,12 @@ algolia:
 
 Make sure you explicitly declare `fields.title`, `fields.path`directly under the fields array structure exactly as shown above.
 
-# 5. Troubleshooting hexo-shokax-create-time Discrepancy
+## Troubleshooting hexo-shokax-create-time Discrepancy
 I made another silly oversight here: I copy-pasted the documentation string `createTime: "YYYY/MM/DD HH:MM:SS"` blindly into my config, only to find the site rendering component blank. It took me a while to realize that this value is a placeholder meant to be replaced with your actual site creation timestamp!
 
 Furthermore, make sure this parameter is placed inside `_config.shokax.yml`, not the global `_config.yml`. If you wish to customize the label string, you can modify the template directly inside `./viewers/create-time.pug`.
 
-# 6. hexo-shokax-busuanzi
+## hexo-shokax-busuanzi
 After configuring the standard Busuanzi visitor counter (hexo-shokax-busuanzi), the view metrics simply refused to render. This occurs due to a script loading conflict with the Live2D plugin.
 
 To fix this, edit your local template file at `./node_modules/hexo-shokax-busuanzi/busuanzi.pug` and strip out the element IDs inside the span parentheses. The modified layout code should look like this:
@@ -177,9 +177,9 @@ Note: When debugging on http://localhost:4000/, your analytics count might show 
 
 Unresolved Bug: The Busuanzi counter currently breaks and drops packets when accessing the site through a proxy/VPN. The theme author suggested self-hosting the tracking API backend, which I might look into when I have some free time. :-P
 
-# 7. Customizing Core Pug Templates
+## Customizing Core Pug Templates
 
-## 7.1 Completely Removing the Cat Loading Animation
+### Completely Removing the Cat Loading Animation
 
 Even though the theme allows you to toggle off the loading overlay via configuration properties, the asset overhead scripts still run behind the scenes. To completely eliminate the cat layout component:
 
@@ -201,11 +201,11 @@ div(id="loading")
     //-         div(class="hands right")
 ```
 
-## 7.2 Modifying the Browser Tab Title Hover Format
+### Modifying the Browser Tab Title Hover Format
 
 After configuring title and alternate strings across the setup files, I noticed that the default mouse-hover title format renders clunkily as `alternate=title`. To change the delimiter to a clean pipe (`|`), adjust the corresponding evaluation statement inside `themes/shokax/layout/_partials/layout.pug`: `!=${alternate?alternate + " | ":""}${title}${subtitle?" | "+subtitle:""}`
 
-# 8. Asset Optimization Tools
+## Asset Optimization Tools
 
 For matching multi-platform favicons and general images, here are some incredibly helpful asset-conversion utilities that I use during layout builds:
 
@@ -213,7 +213,7 @@ For matching multi-platform favicons and general images, here are some incredibl
 - [CloudConvert](https://cloudconvert.com/)
 - [Convertio](https://convertio.co/zh/)
 
-# TODO
+## TODO
 
 1. Self-hosting a custom Busuanzi API counter endpoint.
 2. Refactoring the underlying CSS theme color variables.

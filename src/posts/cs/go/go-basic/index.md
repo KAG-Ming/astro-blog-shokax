@@ -12,7 +12,7 @@ cover: ./cover.png
 description: My personal go cheatsheet.
 draft: false
 ---
-# Command-Line Arguments
+## Command-Line Arguments
 `os.Args`: slice. `os.Args[0]` refers to the program itself, and we often use `os.Args[1:]`. 
 ```go
 package main
@@ -28,8 +28,8 @@ func main() {
 ```
 
 
-#  Format Output `fmt.Printf()`
-## Verbs
+##  Format Output `fmt.Printf()`
+### Verbs
 
 | Verb | Meaning                                                          | Example                         |
 | ---- | ---------------------------------------------------------------- | ------------------------------- |
@@ -52,15 +52,15 @@ func main() {
 | %e   | Scientific notation (exponential).                               | 3.141590e+00                    |
 | %t   | bool                                                             | true                            |
 | %p   | pointer                                                          | 0xc0000b2008                    |
-## Index Explicitly `[n]`
+### Index Explicitly `[n]`
 Reuses the $n$-th argument past the format string. Saves you from typing the same variable over and over.
 *eg: o:=0666; %[1]o $\rightarrow$ 666*
 
-## Alternative Format `#`
+### Alternative Format `#`
 Forces the output to include its sharp, recognizable base prefix (0 for octal, 0x for hex).
 *eg: o:=0666; %#o $\rightarrow$ 0666*
 
-## Sizing and Padding
+### Sizing and Padding
 You can insert numbers between the `%` and the verb to control spacing and alignment, which is great for building text-based tables or logs.
 ```go
 fmt.Printf("|%5s|\n", "Go")   // Right-aligned, width 5:  |   Go|
@@ -68,13 +68,13 @@ fmt.Printf("|%-5s|\n", "Go")  // Left-aligned, width 5:   |Go   |
 fmt.Printf("|%05d|\n", 42)    // Pad with leading zeros:  |00042|
 ```
 
-# `iota`
+## `iota`
 Rules:
 1. Only can be used in `const` group.
 2. From 0, every line +1.
 
-# `crypto/sha256`
-## Short Text Encryption
+## `crypto/sha256`
+### Short Text Encryption
 ```go
 sum := sha256.Sum256([]byte(password))
 ```
@@ -85,7 +85,7 @@ Add salt:
 sha256.Sum256([]byte(password + "Random_Salt_#9823"))
 ```
 
-## Large Files Streaming
+### Large Files Streaming
 ```go
 package main
 
@@ -115,7 +115,7 @@ func main() {
 	fmt.Printf("Large files' SHA256 is: %x\n", result)
 }
 ```
-## Recursively Adding Data
+### Recursively Adding Data
 ```go
 h := sha256.New()
 for {
@@ -223,18 +223,21 @@ func main() {
 	fmt.Printf("%x\n", h.Sum(nil))
 }
 ```
-# String & []byte & Rune
+## String & []byte & Rune
 In golang, a `string` is actually a `[]byte`, `len()` returns the number of bytes not runes. To get runes, use `utf8.RuneCountInString()`.
-# Slice
+
+### bytes.Buffer
+The data in it is ASCII code.Used when string is frequently extended.
+## Slice
 When delivering a slice to a function, the copied slice also has its pointer pointed to the original array, so any change of the slice in the function will cause the original slice to change.
 
-# Maps
+## Maps
 K[V]
 - K must be comparable using == , floating number and NaN are bad choices
 - K & V can't be the same type
 The zero value for a map type is `nil`.
-## Basic Operations
-### Create
+### Basic Operations
+#### Create
 ```go
 ages := make(map[string]int)
 ages["alice"] = 31
@@ -251,12 +254,12 @@ ages := map[string]int {
 ```
 
 A empty map: `map[string]int{}`
-### Delete
+#### Delete
 ```go
 delete(ages, "alice")
 ```
 
-### Enumerate
+#### Enumerate
 Go intentionally to "shuffle" the map, so the result will be different in every run:
 ```go
 for name, age := range ages {
@@ -277,7 +280,7 @@ for _, name := range keys {
 }
 ```
 
-## Safety
+### Safety
 If the element isn't in the map, the map will returns the zero value for its type. 
 
 And a map element is not a variable, and we cannot take its address:
@@ -297,7 +300,7 @@ age, ok := ages["bob"]
 if !ok { /* "bob" is not a key in this map; age == 0. */}
 ```
 
-## Act Like `set`
+### Act Like `set`
 ```go
 // Using a map as a set
 registeredUsers := map[string]bool{
@@ -318,5 +321,5 @@ However, not all map[string]bool values are simple sets; some may contain both t
 _, ok := userStatus["bob"]
 ```
 
-# Ref
+## Ref
 [edu.anarcho-copy.org/Programming Languages/Go/The Go Programming Language - Donovan, Alan A. A. \_ Kernigha\_6127.pdf](https://edu.anarcho-copy.org/Programming%20Languages/Go/The%20Go%20Programming%20Language%20-%20Donovan,%20Alan%20A.%20A.%20_%20Kernigha_6127.pdf)

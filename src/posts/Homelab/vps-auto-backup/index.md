@@ -6,7 +6,7 @@ tags:
   - VPS
 author: Onirexus
 date: 2026-05-27 05:46:04
-cover: ./cover.png
+cover: ./cover.avif
 description: Use rclone and Google Drive to auto backup VPS' data and SQLite database.
 ---
 
@@ -14,11 +14,11 @@ Until recently, my backup routine was simple: tarring files and using `rclone co
 
 By the way, since my current projects only rely on SQLite -- without more complex ones like MySQL or Redis -- I just took SQLite into account. Maybe I'll add PGP encryption and support for other databases in the future.
 
-# 1. Configuring Rclone
+## 1 Configuring Rclone
 
 Run the official Rclone installation script and `rclone config` to config corresponding cloud drive. I'm sure that's esay to you so I'll skip this part :-)
 
-# 2. The Backup Script
+## 2 The Backup Script
 
 The script compressing Nginx configurations, Docker data and most files in home directories, while retaining the last 5 days of backups. The logic to handle db is straightforward: it scans for specific file extensions and utilizes SQLite's native command to backup. Once the archive is uploaded to cloud, the script deletes all temp files generated during the process. And for sure, you need to `sudo apt install sqlite` first.
 
@@ -117,7 +117,7 @@ else
 fi
 ```
 
-# 3. Setting Up the Cron Job
+## 3 Setting Up the Cron Job
 
 Run the script as root user for convenience.
 First, install crontab：

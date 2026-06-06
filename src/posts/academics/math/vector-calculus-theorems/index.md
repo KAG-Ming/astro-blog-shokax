@@ -10,12 +10,12 @@ categories:
 author: Onirexus
 description: This post summarizes the core theorems of vector calculus (Green's, Stokes', and Divergence theorems) by linking them to the generalized Stokes' theorem.
 draft: false
-cover: ./cover.webp
+cover: ./cover.avif
 ---
 ![theorems-explain](explain.webp)
 *Source: [Reddit - I made a little graphic for the Fundamental Theorems of Calc III](https://www.reddit.com/r/calculus/comments/a372hu/i_made_a_little_graphic_for_the_fundamental/)*
 
-# 1. Unified Framework: Generalized Stokes' Theorem
+## 1 Unified Framework: Generalized Stokes' Theorem
 
 All fundamental theorems of vector calculus are specific dimensional cases of the Generalized Stokes' Theorem:
 
@@ -23,29 +23,29 @@ $$\int_{\Omega} d\omega = \int_{\partial \Omega} \omega$$
 
 Where $\Omega$ represents the interior region, $\partial \Omega$ denotes its boundary, and $d\omega$ represents the exterior derivative. The core principle is that the integration of a derivative over a domain equals the integration of the original form over its boundary.
 
-## 1D: Fundamental Theorem of Calculus
+### 1D: Fundamental Theorem of Calculus
 * **Formula:** $\int_a^b f'(x) \, dx = f(b) - f(a)$
 * **Domain:** 1D interval $[a, b]$ with 0D boundary endpoints $a$ and $b$.
 
-## 2D: Green's Theorem
+### 2D: Green's Theorem
 * **Formula:** $\iint_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) \, dxdy = \oint_C (P\,dx + Q\,dy)$
 * **Domain:** 2D planar region $D$ bounded by a 1D closed curve $C$.
 
-## 3D Surfaces: Stokes' Theorem (Curl Theorem)
+### 3D Surfaces: Stokes' Theorem (Curl Theorem)
 * **Formula:** $$\iint_S (\nabla \times \mathbf{F}) \cdot d\mathbf{S} = \oint_{\partial S} \mathbf{F} \cdot d\mathbf{r}$$
 * **Interpretation:** The surface integral of the curl of a vector field $\mathbf{F}$ over an open surface $S$ equals the line integral of $\mathbf{F}$ along the boundary curve $\partial S$.
 
-## 3D Volumes: Gauss's Theorem (Divergence Theorem)
+### 3D Volumes: Gauss's Theorem (Divergence Theorem)
 * **Formula:** $$\iiint_V (\nabla \cdot \mathbf{F}) \, dV = \oiint_{\partial V} \mathbf{F} \cdot d\mathbf{S}$$
 * **Interpretation:** The volume integral of the divergence of a vector field $\mathbf{F}$ over a solid $V$ equals the net flux of $\mathbf{F}$ passing through the closed bounding surface $\partial V$.
 
 ---
 
-# 2. Operational Rules of the Del ($\nabla$) Operator
+## 2 Operational Rules of the Del ($\nabla$) Operator
 
 The del operator $\nabla$ functions simultaneously as a vector and a differential operator. When applied to products, it follows the product rule (Leibniz rule) rather than the chain rule.
 
-## Vector Identity: $\nabla \times (\varphi \mathbf{A})$
+### Vector Identity: $\nabla \times (\varphi \mathbf{A})$
 $$\nabla \times (\varphi \mathbf{A}) = \varphi (\nabla \times \mathbf{A}) + (\nabla \varphi) \times \mathbf{A}$$
 
 **Derivation and Structural Mechanics:**
@@ -62,7 +62,7 @@ $$= \varphi \left( \frac{\partial A_z}{\partial y} - \frac{\partial A_y}{\partia
 
 ---
 
-# 3. Summary
+## 3 Summary
 
 | Theorem | Interior ($\Omega$) | Boundary ($\partial \Omega$) | Operator |
 | :--- | :--- | :--- | :--- |

@@ -6,7 +6,7 @@ tags:
 author: Onirexus
 categories:
   - Homelab
-cover: ./cover.jpg
+cover: ./cover.avif
 description: My personal practice of utilizing used Android Phone to lightweight NAS with AList and Cloudflare Tunnel.
 ---
 
@@ -19,7 +19,7 @@ description: My personal practice of utilizing used Android Phone to lightweight
 
 Lately, I’ve had some spare time and decided to repurpose an old Android phone into a lightweight NAS by installing AList. Here is a brief guide sharing my hands-on experience and configurations. If you spot any mistakes, feel free to point them out in the comments section below!
 
-# 1. Installing AList
+## 1 Installing AList
 
 For this project, I used **AList-lite**, a native Android app built on the open-source OList project. It requires no complex command-line setup—just install the APK, and you are good to go. Since there are plenty of basic installation tutorials online, I won't re-invent the wheel here. You can refer to these links for step-by-step setup:
 
@@ -31,11 +31,11 @@ Once installed, follow the official documentation to complete the basic setup. T
 
 _Note: My university network does not behave like a standard LAN environment, which brought up some unique routing challenges._
 
-# 2. External Access
+## 2 External Access
 
 Since I don't have a public IPv4 address and my university network enforces strict firewall rules on IPv6, traditional port forwarding was out of the question. Funnily enough, I noticed that simply connecting both my primary phone and the old phone to the campus VPN allowed them to communicate, though I haven't deep-dived into the underlying routing mechanics yet.
 
-## 2.1 P2P Hole Punching (Tailscale / ZeroTier)
+### 2.1 P2P Hole Punching (Tailscale / ZeroTier)
 
 Initially, I tried utilizing mesh VPN services like Tailscale to establish a peer-to-peer connection, following a guide on Coolapk:
 
@@ -45,9 +45,9 @@ While the setup was straightforward, my remote download speeds capped out at a m
 
 I also looked into commercial solutions like PeanutHull (花生壳), but the free tier only offers 1 GB of monthly data—practically useless for storage traffic.
 
-## 2.2 Cloudflare Tunnel
+### 2.2 Cloudflare Tunnel
 
-### 2.2.1 Register a Domain on Cloudflare
+#### 2.2.1 Register a Domain on Cloudflare
 
 You will need a Cloudflare account and a custom domain. If your domain is currently with another registrar, migrate your DNS nameservers to Cloudflare.
 
@@ -64,7 +64,7 @@ Once you add your site, Cloudflare will provide two custom nameservers. Update y
   The following steps are executed entirely inside **Termux**.
 </Note>
 
-### 2.2.2 Installing cloudflared in Termux
+#### 2.2.2 Installing cloudflared in Termux
 
 Update your packages and install the required tools:
 
@@ -73,7 +73,7 @@ pkg update && pkg upgrade
 pkg install wget curl cloudflared
 ```
 
-### 2.2.3 Creating the Tunnel
+#### 2.2.3 Creating the Tunnel
 
 Authenticate your Cloudflare account inside Termux:
 
@@ -121,7 +121,7 @@ You can verify the status by running:
 cloudflared tunnel list
 ```
 
-### 2.2.4 Configuring the Tunnel
+#### 2.2.4 Configuring the Tunnel
 
 ```bash
 nano ~/.cloudflared/config.yml
@@ -138,7 +138,7 @@ ingress:
   - service: http_status:404
 ```
 
-### 2.2.5 Routing DNS and Launching
+#### 2.2.5 Routing DNS and Launching
 
 ```bash
 cloudflared tunnel route dns my-android-tunnel yourdomain.com
@@ -150,11 +150,11 @@ cloudflared tunnel run my-android-tunnel
 
 At this point, your AList server is exposed securely to the web. Open a browser and verify by navigating to https://pan.yourdomain.com. To terminate the session, simply hit Ctrl+C.
 
-# 3. Real-Time Hardware Monitoring via MacroDroid
+## 3 Real-Time Hardware Monitoring via MacroDroid
 
 The tutorial mentioned earlier inspired me to take telemetry a step further. I configured MacroDroid to periodically dump system metrics into a JSON file stored on the server. Then, I injected a custom JavaScript floating widget into the AList global header to parse and display this real-time system status.
 
-## 3.1 MacroDroid Configuration
+### 3.1 MacroDroid Configuration
 
 Create a new macro in MacroDroid:Trigger: Every 5 minutes.Action: Write File $\rightarrow$ Name: device_status.json $\rightarrow$ Option: Overwrite file.
 
@@ -178,7 +178,7 @@ Create a new macro in MacroDroid:Trigger: Every 5 minutes.Action: Write File $\r
 }
 ```
 
-## 3.2 AList Admin Setting Injection
+### 3.2 AList Admin Setting Injection
 
 Navigate to your AList Admin Dashboard $\rightarrow$ Settings $\rightarrow$ Style, and inject the components into their respective sections.
 
@@ -569,12 +569,12 @@ Global Body Content:
 
 In my environment, the macro runs every 5 minutes to minimize battery drain, while the frontend dashboard fetches updates every 30 seconds when open. You can tune these intervals to fit your needs.
 
-# 4. Visual Customization
+## 4. Visual Customization
 
 I didn't heavily customize the AList interface, opting instead for a minimalist, fully transparent UI. If you want to replicate the look, check out this styling breakthrough from the Moe Community:
 
 - [萌社区 moe.one](https://moe.one/thread-1335.htm)
 
-# 5. Battery Preservation (TODO)
+## 5. Battery Preservation (TODO)
 
 I will soon expand this post to include efficient daemon process management (keeping cloudflared alive automatically) and advanced power-saving solutions to protect the battery from overheating during prolonged server runtimes.

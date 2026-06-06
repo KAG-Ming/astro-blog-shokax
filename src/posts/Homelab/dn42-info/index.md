@@ -12,15 +12,15 @@ cover: ./cover.png
 ---
 Welcome to my DN42 network page. I am open to peering with other nodes to expand the network and experiment with BGP routing. If you'd like to peer with me, please check the details below and feel free to reach out.
 
-# My Network Info
+## My Network Info
 
 - ASN: AS4242423423
 - IPv4: 172.20.210.96/27
 - IPv6: fd36:5c96:7310::/48
 
-# Nodes
+## Nodes
 
-## Node 1: US01
+### Node 1: US01
 *   **Endpoint/Port:** Please contact me to exchange endpoint details.
 *   **Tunnel Type:** WireGuard
 *   **Supported Protocols:** IPv4/IPv6 Link-Local, Multiprotocol BGP (MP-BGP)
