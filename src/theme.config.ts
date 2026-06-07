@@ -231,13 +231,13 @@ export default defineConfig({
     description: "",
     links: [
       {
-        url: "https://astro.build/",
-        title: "Astro",
-        desc: "The web framework for content-driven websites",
-        author: "Astro Team",
-        avatar: "https://avatars.githubusercontent.com/u/44914786?s=200&v=4",
-        color: "var(--color-orange)",
-        siteImage: "https://astro.build/assets/press/astro-logo-dark.svg",
+        url: "https://Ashlord.com",
+        title: "solaireh3",
+        desc: "愛しの君とこの世のはたて",
+        author: "solaireh3",
+        avatar: "https://img.ashlord.com/537-1.gif",
+        // color: "var(--color-orange)",
+        // siteImage: "https://astro.build/assets/press/astro-logo-dark.svg",
       },
       {
         url: "https://docs.shokax.kaitaku.xyz/",
