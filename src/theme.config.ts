@@ -236,7 +236,7 @@ export default defineConfig({
         desc: "愛しの君とこの世のはたて",
         author: "solaireh3",
         avatar: "https://img.ashlord.com/537-1.gif",
-        // color: "#C3B1E1",
+        color: "#C3B1E1",
         // siteImage: "https://astro.build/assets/press/astro-logo-dark.svg",
       },
       {
@@ -248,13 +248,13 @@ export default defineConfig({
         color: "var(--color-blue)",
       },
       {
-        url: "https://shoka.lostyu.me",
-        title: "優萌初華",
-        desc: "琉璃的医学 & 编程笔记",
-        author: "霜月琉璃",
+        url: "https://moran-neko.moe/",
+        title: "默然の补给站",
+        desc: "一个野生的互联网存档点",
+        author: "默然",
         avatar:
-          "https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg",
-        color: "#e9546b",
+          "https://moran-neko.moe/img/mortis.ico",
+        color: "#C1E1D1",
       },
       {
         url: "https://xnmoe.com",
