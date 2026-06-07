@@ -2,9 +2,8 @@
 title: Hello World!
 date: 2025-03-03
 description: This is the first post on the ShokaX blog. Welcome to our new Astro-based theme!
-tags: [welcome, astro, shokaX]
-categories: [Getting Started]
-cover: ../assets/images/cover-1.avif
+tags:
+categories:
 draft: false
 ---
 

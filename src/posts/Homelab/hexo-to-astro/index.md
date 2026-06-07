@@ -4,8 +4,6 @@ categories:
   - Homelab
 tags:
   - blog
-  - hexo
-  - astro
 author: Onirexus
 date: 2026-05-28 00:05:02
 description: Record troubleshooting of migrating shokax-theme blog from Hexo to Astro.

@@ -94,6 +94,13 @@ With this overview in place, we can now implement each phase step by step.
 
 ## 3 Handshake & Authentication
 
+First, the client sends a message with protocol version and authentication methods:
+
+| Field | VER  | NMETHODS | METHODS |
+| ----- | ---- | -------- | ------- |
+| Byte  | 1    | 1        | 1-255   |
+| Value | 0x05 |          |         |
+
 ```go
 func socks5Auth(conn net.Conn) error {
 	_ = conn.SetReadDeadline(time.Now().Add(timeoutDuration))

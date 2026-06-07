@@ -4,7 +4,6 @@ author: Onirexus
 title: "Hexo ShokaX Theme: Troubleshooting Notes"
 tags:
   - blog
-  - hexo
 categories:
   - Homelab
 description: Record troubleshooting when I configure hexo-shokax theme.

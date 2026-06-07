@@ -4,6 +4,7 @@ categories:
   - Homelab
 tags:
   - dn42
+  - network
 author: Onirexus
 date: 2026-06-01 18:19:54
 description: Welcome to my DN42 network page!

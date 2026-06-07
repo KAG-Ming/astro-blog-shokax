@@ -157,6 +157,7 @@ export default defineConfig({
     waline: {
       serverURL: "https://waline.reimu.qzz.io",
       lang: "en",
+      dark: "auto",
     },
   },
   hyc: {

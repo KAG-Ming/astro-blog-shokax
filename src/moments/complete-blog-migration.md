@@ -2,4 +2,4 @@
 date: 2026-05-29
 ---
 
-Finally, I've complete my blog migration !🎉
+Finally, I've completed my blog migration !🎉
