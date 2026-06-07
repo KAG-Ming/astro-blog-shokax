@@ -260,7 +260,7 @@ export default defineConfig({
         url: "https://xnmoe.com",
         title: "NNNullptr南",
         desc: "数学生的古早拼贴风格网站",
-        //author: "Bun Team",
+        author: "NNNullptr南",
         avatar: "https://www.xnmoe.com/assets/images/pfp.png",
         color: "#FFC5D3",
         //siteImage: "https://bun.sh/logo.svg",
