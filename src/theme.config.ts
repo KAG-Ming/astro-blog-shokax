@@ -279,7 +279,7 @@ export default defineConfig({
         desc: "开发者，产品折腾者，细节控，内容创作者",
         author: "HuanHQ",
         avatar: "https://avatars.githubusercontent.com/u/186523549?v=4",
-        color: "var(--color-white)",
+        color: "var(--color-red)",
       },
     ],
   },
