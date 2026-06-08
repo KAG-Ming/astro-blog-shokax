@@ -252,8 +252,7 @@ export default defineConfig({
         title: "默然の补给站",
         desc: "一个野生的互联网存档点",
         author: "默然",
-        avatar:
-          "https://moran-neko.moe/img/mortis.ico",
+        avatar: "https://moran-neko.moe/img/mortis.ico",
         color: "#C1E1D1",
       },
       {
@@ -264,6 +263,23 @@ export default defineConfig({
         avatar: "https://www.xnmoe.com/assets/images/pfp.png",
         color: "#FFC5D3",
         //siteImage: "https://bun.sh/logo.svg",
+      },
+      {
+        url: "https://blog.geekzs.com",
+        title: "极客宗山",
+        desc: "记录&沉淀",
+        author: "宗山",
+        avatar: "https://img.geekzs.com/avatar/avatar.png",
+        color: "#1D1F21",
+        //siteImage: "https://bun.sh/logo.svg",
+      },
+      {
+        url: "https://www.huanhq.com/",
+        title: "HuanHQ",
+        desc: "开发者，产品折腾者，细节控，内容创作者",
+        author: "HuanHQ",
+        avatar: "https://avatars.githubusercontent.com/u/186523549?v=4",
+        color: "var(--color-white)",
       },
     ],
   },
