@@ -1,0 +1,76 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const pageTitle = "404 Not Found";
+---
+
+<Layout pageTitle={pageTitle}>
+  <div class="wrap error-page">
+    <div class="error-card">
+      <h1 class="error-code">404</h1>
+      <p class="msg">We're sorry, we can't find the page you're looking for. It may have been removed, renamed, or temporarily unavailable.</p>
+      <a class="home-link" href="/">Go to Homepage</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    padding: 2rem 1.5rem;
+  }
+
+  .error-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem 4rem;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, var(--grey-0), var(--grey-1));
+    border: 1px solid var(--grey-2);
+    box-shadow: 0 0.6rem 1.5rem var(--box-bg-shadow);
+    max-width: 24rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .error-code {
+    font-size: 5rem;
+    margin: 0;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-purple, var(--color-blue)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .msg {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--grey-6);
+  }
+
+  .home-link {
+    margin-top: 1rem;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid var(--color-blue);
+    border-radius: 2rem;
+    color: var(--color-blue);
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .home-link:hover {
+    background: color-mix(in srgb, var(--color-blue) 10%, transparent);
+  }
+
+  @media (max-width: 480px) {
+    .error-card {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
