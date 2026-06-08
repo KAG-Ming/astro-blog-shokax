@@ -107,7 +107,7 @@ export default defineConfig({
       github: {
         url: "https://github.com/KAG-Ming",
         icon: "i-ri-github-line",
-        color: "#24292f",
+        color: "#101411",
       },
       telegram: {
         url: "https://t.me/Onirexus",
