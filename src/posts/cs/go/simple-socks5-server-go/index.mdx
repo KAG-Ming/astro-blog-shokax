@@ -13,7 +13,9 @@ description: Build a lightweight SOCKS5 proxy server from scratch in Go, walking
 draft: false
 cover: ./cover.avif
 ---
-The complete source code for this project is available on GitHub: [GitHub - KAG-Ming/simple-socks5-go: A simple implementation of SOCKS5 with Golang. · GitHub](https://github.com/KAG-Ming/simple-socks5-go)
+<Note type="info">
+The complete source code for this project is available on GitHub: [GitHub - KAG-Ming/simple-proxy-go](https://github.com/KAG-Ming/simple-proxy-go)
+</Note>
 
 While robust, production-grade SOCKS5 libraries like [GitHub - armon/go-socks5: SOCKS5 server in Golang · GitHub](https://github.com/armon/go-socks5) already exist in the Go ecosystem, I decided to build a minimalist SOCKS5 server from scratch as a learning project.  Please note that this version is meant for practice and may still contain bugs.
 
@@ -65,7 +67,7 @@ func main() {
 }
 ```
 
-The `handleConnection` function acts as the pipeline commander for each client. It perfectly mirrors the SOCKS5 lifecycle by breaking it down into four distinct phases: authentication, request parsing, destination connection, and data relaying.
+The `handleConnection` function acts as the pipeline commander for each client. It perfectly mirrors the SOCKS5 life cycle by breaking it down into four distinct phases: authentication, request parsing, destination connection, and data relaying.
 
 ```go
 func handleConnection(conn net.Conn) {
@@ -418,10 +420,15 @@ curl --socks5 127.0.0.1:1080 http://httpbin.org/ip
 
 If the command successfully returns the proxy server's outbound ip address and no error logs appear in your server's console, your simple SOCKS5 server is fully functional.
 
-The complete source code: [GitHub - KAG-Ming/simple-socks5-go: A simple implementation of SOCKS5 with Golang. · GitHub](https://github.com/KAG-Ming/simple-socks5-go)
-
-## TODO
-- Authentication sub-negotiation
-- UDP support
-- Graceful Shutdown
+## 8 Limitations
+- The server only supports the unauthenticated method and lacks the capability to verify user credentials.
+- The routing pipeline strictly processes TCP streams and lacks the mechanism to handle UDP associations.
+- Active connections are instantly severed when the process terminates, lacking a proper resource draining and connection-closing lifecycle.
 - ...
+
+<Note type="info">
+The complete source code for this project is available on GitHub: [GitHub - KAG-Ming/simple-proxy-go](https://github.com/KAG-Ming/simple-proxy-go)
+</Note>
+
+## Related Reading
+* [Implementing a Simple HTTP/HTTPS Proxy Server with Golang](/posts/cs/go/simple-http-server-go/)

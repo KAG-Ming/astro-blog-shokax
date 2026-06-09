@@ -3,8 +3,8 @@ title: Configuring IPV6-only VPS
 categories:
   - Homelab
 tags:
-  - VPS
-  - IPV6
+  - vps
+  - ipv6
 author: Onirexus
 date: 2026-05-27 20:35:06
 cover: ./cover.avif

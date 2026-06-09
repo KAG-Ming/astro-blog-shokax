@@ -1,0 +1,246 @@
+---
+title: Implementing a Simple HTTP/HTTPS Proxy Server with Golang
+categories:
+  - Computer Science
+  - Go
+tags:
+  - proxy
+  - network
+  - go
+author: Onirexus
+date: 2026-06-09 14:58:38
+description: Build a minimalist HTTP/HTTPS proxy server with Go step by step.
+draft: false
+cover: ./cover.avif
+---
+<Note type="info">
+The complete source code for this project is available on GitHub: [GitHub - KAG-Ming/simple-proxy-go](https://github.com/KAG-Ming/simple-proxy-go)
+</Note>
+
+Last time we implemented [a simple SOCKS5 server](/posts/cs/go/simple-socks5-server-go/). Today we're going to implement an HTTP/HTTPS proxy server. Similar to the previous project, this is for educational and practice purposes only and is not production-grade.In fact, this implementation is much simpler than SOCKS5; I probably should have started with this one.
+
+## 1 HTTP/HTTPS Proxy Introduction
+
+Technically, an HTTP proxy server is highly similar to a standard HTTP web server. Both listen for incoming TCP connections and parse HTTP request messages. However, instead of locating a static file on the local file system to serve the client, a proxy server parses the destination address from the request, establishes a new TCP connection to that target server, and forwards the data.
+
+![http-proxy-explain](cover.avif)
+
+According to these standards, when a client configures an HTTP/HTTPS proxy, its connection life cycle and request format split into two distinct workflows depending on the scheme:
+
+### 1.1 HTTP Proxy Workflow
+For unencrypted HTTP requests, the client sends a request using the absolute-form uri specification. The Request-Line includes the full scheme and host:
+
+```http
+// method(POST/GET/...) + absolute uri + http version
+GET http://google.com/ HTTP/1.1
+````
+
+The proxy server parses the target host, establishes a TCP connection to it, forwards this entire request (including all subsequent headers), and then streams the response back to the client.
+
+### 1.2 HTTPS Proxy Workflow
+
+For encrypted HTTPS requests, the client cannot expose the plaintext uri or headers. Instead, it uses the `CONNECT` method to request a transparent TCP tunnel:
+
+```http
+// CONNECT + authority + http version
+CONNECT google.com:443 HTTP/1.1
+```
+
+The proxy server parses the authority and opens a TCP connection to the destination. Unlike the HTTP workflow, the proxy **does not** forward the `CONNECT` line. Instead, it immediately replies to the client with an HTTP status line: `HTTP/1.1 200 Connection Established\r\n\r\n`.
+
+Once this response is sent, the proxy drops down to the transport layer, acting as a blind, bidirectional data forwarder for the raw TLS-encrypted traffic between the client and the destination server.
+
+### Ref
+- [RFC 9110 - HTTP Semantics](https://datatracker.ietf.org/doc/html/rfc9110)
+- [RFC 9112 - HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc9112)
+
+## 2 Overall Structure
+
+The architecture follows a straightforward concurrent design. The main routine initializes a TCP listener on a specified port and enters a continuous loop to accept incoming client connections.
+
+For each established connection, the server spawns a new Goroutine to handle the lifecycle independent of others. 
+
+```go
+func main() {
+	addr := "127.0.0.1:8080"
+	listener, err := net.Listen("tcp", addr)
+	if err != nil {
+		log.Fatalf("Listen failed: %v", err)
+	}
+	defer listener.Close()
+	log.Printf("HTTP/HTTPS Server launched, listening at %s...", addr)
+	
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			log.Printf("Accept connection failed: %v", err)
+			continue
+		}
+		go handleConnection(conn)
+	}
+}
+```
+
+The core logic inside the connection handler is split into three sequential phases:
+1. Read and parse the initial HTTP request line from the client to determine the proxying mode and extract the destination address.
+2. Establish a raw TCP connection to the target remote server.
+3. Handle protocol-specific handshakes (sending a 200 OK for HTTPS, or forwarding the initial request line for HTTP) and then transition into a bidirectional data copy loop that bridges the client and upstream connections concurrently.
+
+## 3 Parse the First Line of the Request
+We start by creating a `bufio.Reader` and passing it to the `parseRequestLine` function.
+```go
+func handleConnection(conn net.Conn) {
+	defer conn.Close()
+	reader := bufio.NewReader(conn)
+	
+	line, method, destAddr, err := parseRequestLine(reader)
+	if err != nil {
+		log.Printf("parse the first line error: %v", err)
+		return
+	}
+}
+```
+
+We use the `ReadString` method to read the first line, and `strings.Fields` to split it into the method, address, and protocol version. Note that `strings.Fields` automatically strips any whitespace, including the trailing `\r\n`.
+
+```go
+line, err = reader.ReadString('\n')
+if err != nil {
+	return "", "", "", fmt.Errorf("read the first line failed: %v", err)
+}
+	
+fields := strings.Fields(line)
+if len(fields) < 2 {
+	return "", "", "", fmt.Errorf("malformed request line: %s", line)
+}
+method = fields[0]
+```
+
+Next, we extract the destination address based on the HTTP method. If the method is `CONNECT`, we simply return `fields[1]` because HTTPS requests always provide the address in a `host:port` format, which can be directly used later.
+
+```go
+if method == "CONNECT" {
+	// https "google.com:443"
+	return line, method, fields[1], nil
+}
+```
+
+If it is a standard HTTP request, we use `url.Parse` to parse the absolute URL. If the parsed host does not specify a port, we manually append the default HTTP port `:80`.
+
+```go
+else {
+	// http "http://google.com/"
+	u, err := url.Parse(fields[1])
+	if err != nil {
+		return "", "", "", fmt.Errorf("parse address error: %v", err)
+	}
+	address = u.Host
+		
+	// if no port in u.Host, add :80
+	if !strings.Contains(address, ":") {
+		address = address + ":80"
+	}
+	return line, method, address, nil
+}
+```
+
+Here is the complete function:
+```go
+func parseRequestLine(reader *bufio.Reader) (line, method, address string, err error) {
+	line, err = reader.ReadString('\n')
+	if err != nil {
+		return "", "", "", fmt.Errorf("read the first line failed: %v", err)
+	}
+	
+	fields := strings.Fields(line)
+	if len(fields) < 2 {
+		return "", "", "", fmt.Errorf("malformed request line: %s", line)
+	}
+	method = fields[0]
+	if method == "CONNECT" {
+		// https "google.com:443"
+		return line, method, fields[1], nil
+	} else {
+		// http "http://google.com/"
+		u, err := url.Parse(fields[1])
+		if err != nil {
+			return "", "", "", fmt.Errorf("parse address error: %v", err)
+		}
+		address = u.Host
+		
+		// if no port in u.Host, add :80
+		if !strings.Contains(address, ":") {
+			address = address + ":80"
+		}
+		return line, method, address, nil
+	}
+}
+```
+
+## 4 Connect to the Destination Server (HTTP Forwarding & HTTPS Tunneling)
+
+The step to establish the TCP connection to the upstream server is identical for both modes, so we keep this logic directly inside `handleConnection`:
+```go
+// connect to the destination server
+destConn, err := net.Dial("tcp", destAddr)
+if err != nil {
+	log.Printf("connect to the destination server error: %v", err)
+	return
+}
+defer destConn.Close()
+```
+
+Then, we branch our logic depending on the method.
+
+For HTTPS, the proxy server must intercept the request and reply with an HTTP 200 OK status line to tell the client to begin TLS negotiation.
+
+For HTTP, the proxy must write the parsed initial request line back to the target server, as this line has already been consumed from our buffer.
+```go
+if method == "CONNECT" {
+	// https
+	_, err = conn.Write([]byte("HTTP/1.1 200 Connection Established\r\n\r\n"))
+	} else {
+	// http
+	_, err = destConn.Write([]byte(line))
+	}
+	if err != nil {
+		log.Printf("connect to the destination server error: %v", err)
+		return
+}
+```
+
+## 5 Bidirectional Data Forwarding
+Finally, the proxy server functions as a transparent tunnel to forward data bidirectionally. We define a `forward` function to handle this:
+```go
+func forward(reader io.Reader, conn, destConn net.Conn) {
+	go func() {
+		_, _ = io.Copy(destConn, reader)
+		destConn.Close()
+	}()
+	_, _ = io.Copy(conn, destConn)
+}
+```
+
+We execute `io.Copy` inside a new Goroutine to ensure that both data streams run concurrently.
+
+An essential detail here is that we pass the `bufio.Reader` instance into the forwarding function instead of the raw `conn`. When we initialized `bufio.NewReader(conn)` to read the first line, the reader automatically prefetched and cached subsequent data bytes from the TCP buffer. Passing the raw `conn` would cause this buffered data to be permanently lost, corrupting the stream. Using the `reader` ensures that any cached bytes are drained first before `io.Copy` falls back to reading from the underlying socket.
+
+## 6 Testing
+You can validate the implementation by executing a `curl` command in your terminal with the proxy flag, or by configuring the proxy settings directly in your web browser.
+```bash
+curl -x 127.0.0.1:8080 https://google.com
+```
+
+## 7 Limitations
+
+- It handles connections strictly on a one-off basis without connection reuse.
+- Active connections are forcefully torn down on any error without elegant resource draining.
+- Standard HTTP proxies should strip hop-by-hop headers (like `Proxy-Connection`, `Keep-Alive`), which this simple implementation blindly passes through.
+- ....
+
+<Note type="info">
+The complete source code for this project is available on GitHub: [GitHub - KAG-Ming/simple-proxy-go](https://github.com/KAG-Ming/simple-proxy-go)
+</Note>
+
+## Related Reading
+* [Implementing a Simple SOCKS5 Proxy Server with Golang](/posts/cs/go/simple-socks5-server-go/)

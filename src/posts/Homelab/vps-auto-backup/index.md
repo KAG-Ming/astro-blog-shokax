@@ -3,7 +3,7 @@ title: Configuring Rclone to Automatically Backup VPS to a Cloud Drive
 categories:
   - Homelab
 tags:
-  - VPS
+  - vps
 author: Onirexus
 date: 2026-05-27 05:46:04
 cover: ./cover.avif
