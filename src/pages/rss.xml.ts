@@ -116,33 +116,13 @@ function absolutizeHtmlUrls(html: string, siteUrl: URL, pageUrl: URL): string {
 function cleanHtmlForRss(html: string): string {
   return (
     html
-      // RSS 阅读器通常不会、也不应该执行脚本；你的 MDX 里确实有 script/style。
+      // RSS 阅读器通常不会执行脚本；删掉交互/样式专用内容。
       .replace(/<script\b[\s\S]*?<\/script\s*>/gi, "")
       .replace(/<style\b[\s\S]*?<\/style\s*>/gi, "")
       .replace(/<iframe\b[\s\S]*?<\/iframe\s*>/gi, "")
-      // 去掉 onclick/onload 等事件属性，保留 class/style，避免破坏 KaTeX。
+      // 去掉 onclick/onload 等事件属性。保留 class/style，尽量保住 Shiki 和 KaTeX 显示效果。
       .replace(/\s+on[a-z]+\s*=\s*(['"])[\s\S]*?\1/gi, "")
       .replace(/\s+on[a-z]+\s*=\s*[^\s>]+/gi, "")
-  );
-}
-
-function getPlainTextExcerpt(body: string | undefined): string {
-  return (body ?? "")
-    .replace(/```[\s\S]*?```/g, " ")
-    .replace(/<[^>]*>/g, " ")
-    .replace(/[#>*_`[\]()!-]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, 180);
-}
-
-function getPostDescription(post: CollectionEntry<"posts">): string {
-  if (post.data.encrypted) {
-    return post.data.description || ENCRYPTED_POST_DESCRIPTION;
-  }
-
-  return (
-    post.data.description || getPlainTextExcerpt(post.body) || post.data.title
   );
 }
 
@@ -175,35 +155,45 @@ export async function GET(context: APIContext) {
     sortedPosts.map(async (post) => {
       const postPath = toPostHref(post.id);
       const postUrl = new URL(postPath, siteUrl);
-      const description = getPostDescription(post);
 
       if (post.data.encrypted) {
+        const encryptedContent = `<p>${ENCRYPTED_POST_DESCRIPTION}</p><p><a href="${escapeHtmlAttribute(
+          postUrl.toString(),
+        )}">Read on website</a></p>`;
+
         return {
           title: post.data.title,
           pubDate: post.data.date,
-          description,
           link: postPath,
           categories: getPostCategories(post),
-          content: `<p>${ENCRYPTED_POST_DESCRIPTION}</p><p><a href="${escapeHtmlAttribute(
-            postUrl.toString(),
-          )}">Read on website</a></p>`,
+
+          // 兼容只读 description 的阅读器
+          description: encryptedContent,
+
+          // 标准全文字段
+          content: encryptedContent,
         };
       }
 
       const { Content } = await render(post);
       const renderedHtml = await container.renderToString(Content);
 
-      const content = cleanHtmlForRss(
+      const fullContent = cleanHtmlForRss(
         absolutizeHtmlUrls(renderedHtml, siteUrl, postUrl),
       );
 
       return {
         title: post.data.title,
         pubDate: post.data.date,
-        description,
         link: postPath,
         categories: getPostCategories(post),
-        content,
+
+        // 关键：为了最大阅读器兼容，把全文也放进 description。
+        // @astrojs/rss 会负责 XML entity 编码，不要自己手动 escapeXmlText。
+        description: fullContent,
+
+        // 关键：标准全文字段，会输出为 <content:encoded>。
+        content: fullContent,
       };
     }),
   );
