@@ -94,10 +94,12 @@ export default defineConfig({
   cover: {
     enable: true,
     preload: true,
+    advancedCarousel: false,
     fixedCover: {
       enable: false,
       url: "cover-4",
     },
+    coverUrls: [],
     nextGradientCover: false,
   },
   sidebar: {
