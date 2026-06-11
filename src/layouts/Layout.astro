@@ -172,8 +172,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="generator" content={Astro.generator} />
     
     <link rel="canonical" href={canonicalURL} />
-    
+
     <slot name="head" />
+
+    {!postMeta && (
+      <meta
+        name="description"
+        content={sidebarConfig.description || "Onirexus' Blog"}
+      />
+    )}
 
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
 
@@ -191,6 +198,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           "author": {
             "@type": "Person",
             "name": sidebarConfig.author || "Onirexus"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonicalURL.toString()
           }
         })} />
       ) : (
