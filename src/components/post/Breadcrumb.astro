@@ -1,5 +1,6 @@
 ---
 import { currentLocale, getT } from "@/i18n";
+import { toCategoryHref } from "@/toolkit/posts/url";
 
 interface Props {
   categories?: string[];
@@ -8,67 +9,74 @@ interface Props {
 
 const { categories = [], isHome = true } = Astro.props;
 const t = getT(currentLocale);
+
+const shouldUseStructuredData = categories.length > 0;
+
+const breadcrumbItems = [
+  {
+    name: t("common.home"),
+    href: "/",
+    title: t("common.home"),
+  },
+  ...categories.map((cat) => ({
+    name: cat,
+    href: toCategoryHref(cat),
+    title: `${t("common.in")} ${cat}`,
+  })),
+];
 ---
 
-<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-  <i class="ic i-ri-home-fill"></i>
-  <span>
-    <a href="/">{t("common.home")}</a>
-  </span>
-
+<div
+  class="breadcrumb"
+  itemscope={shouldUseStructuredData ? true : undefined}
+  itemtype={
+    shouldUseStructuredData
+      ? "https://schema.org/BreadcrumbList"
+      : undefined
+  }
+>
   {
-    categories.length > 0 && (
-      <>
-        <i class="ic i-ri-arrow-right-s-line" />
-        {categories.map((cat, index) => {
-          const isLast = index === categories.length - 1;
-          const catPath = `/categories/${cat}/`;
+    breadcrumbItems.map((item, index) => {
+      const isFirst = index === 0;
+      const isLast = index === breadcrumbItems.length - 1;
 
-          if (isLast && isHome) {
-            return (
-              <span
-                class="current"
-                itemprop="itemListElement"
+      return (
+        <>
+          {isFirst ? (
+            <i class="ic i-ri-home-fill" />
+          ) : (
+            <i class="ic i-ri-arrow-right-s-line" />
+          )}
+
+          {shouldUseStructuredData ? (
+            <span
+              class={isLast && isHome ? "current" : undefined}
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <a
+                href={item.href}
+                itemprop="item"
                 itemscope
-                itemtype="https://schema.org/ListItem"
+                itemtype="https://schema.org/WebPage"
+                rel={isFirst ? undefined : "index"}
+                title={item.title}
               >
-                <a
-                  href={catPath}
-                  itemprop="item"
-                  rel="index"
-                  title={`${t("common.in")} ${cat}`}
-                >
-                  <span itemprop="name">{cat}</span>
-                  <meta itemprop="position" content={String(index + 1)} />
-                </a>
-              </span>
-            );
-          } else {
-            return (
-              <>
-                <span
-                  itemprop="itemListElement"
-                  itemscope
-                  itemtype="https://schema.org/ListItem"
-                >
-                  <a
-                    href={catPath}
-                    itemprop="item"
-                    rel="index"
-                    title={`${t("common.in")} ${cat}`}
-                  >
-                    <span itemprop="name">{cat}</span>
-                    <meta itemprop="position" content={String(index + 1)} />
-                  </a>
-                </span>
-                {index < categories.length - 1 && (
-                  <i class="ic i-ri-arrow-right-s-line" />
-                )}
-              </>
-            );
-          }
-        })}
-      </>
-    )
+                <meta itemprop="url" content={item.href} />
+                <span itemprop="name">{item.name}</span>
+              </a>
+              <meta itemprop="position" content={String(index + 1)} />
+            </span>
+          ) : (
+            <span class={isLast && isHome ? "current" : undefined}>
+              <a href={item.href} title={item.title}>
+                {item.name}
+              </a>
+            </span>
+          )}
+        </>
+      );
+    })
   }
 </div>
