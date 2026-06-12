@@ -10,19 +10,28 @@ interface Props {
 const { categories = [], isHome = true } = Astro.props;
 const t = getT(currentLocale);
 
+const siteBase = Astro.site ?? Astro.url;
+const toAbsoluteUrl = (href: string) => new URL(href, siteBase).toString();
+
 const shouldUseStructuredData = categories.length > 0;
 
 const breadcrumbItems = [
   {
     name: t("common.home"),
     href: "/",
+    absoluteHref: toAbsoluteUrl("/"),
     title: t("common.home"),
   },
-  ...categories.map((cat) => ({
-    name: cat,
-    href: toCategoryHref(cat),
-    title: `${t("common.in")} ${cat}`,
-  })),
+  ...categories.map((cat) => {
+    const href = toCategoryHref(cat);
+
+    return {
+      name: cat,
+      href,
+      absoluteHref: toAbsoluteUrl(href),
+      title: `${t("common.in")} ${cat}`,
+    };
+  }),
 ];
 ---
 
@@ -60,10 +69,11 @@ const breadcrumbItems = [
                 itemprop="item"
                 itemscope
                 itemtype="https://schema.org/WebPage"
+                itemid={item.absoluteHref}
                 rel={isFirst ? undefined : "index"}
                 title={item.title}
               >
-                <meta itemprop="url" content={item.href} />
+                <meta itemprop="url" content={item.absoluteHref} />
                 <span itemprop="name">{item.name}</span>
               </a>
               <meta itemprop="position" content={String(index + 1)} />
