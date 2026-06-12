@@ -305,9 +305,15 @@ if (!isEncrypted && hycEnable && aiRecommendEnable) {
 const postPath = toPostHref(post.id);
 
 // Build permalink
-const permalink = Astro.site
-  ? new URL(postPath, Astro.site).toString()
-  : postPath;
+const siteBase = Astro.site ?? Astro.url;
+const permalink = new URL(postPath, siteBase).toString();
+const authorUrl = new URL("/about/", siteBase).toString();
+const authorImage = new URL(avatar.src, siteBase).toString();
+const postCoverSrc =
+  typeof post.data.cover === "string" ? post.data.cover : post.data.cover?.src;
+const postImage = postCoverSrc
+  ? new URL(postCoverSrc, siteBase).toString()
+  : undefined;
 
 // Build postMeta for Brand component
 const postMeta = {
@@ -347,6 +353,7 @@ const postDescription =
         lang={currentLocale}
       >
         <link itemprop="mainEntityOfPage" href={permalink} />
+        {postImage && <meta itemprop="image" content={postImage} />}
 
         <span
           hidden
@@ -354,7 +361,8 @@ const postDescription =
           itemscope
           itemtype="http://schema.org/Person"
         >
-          <meta itemprop="image" content={avatar.src} />
+          <link itemprop="url" href={authorUrl} />
+          <meta itemprop="image" content={authorImage} />
           <meta itemprop="name" content={author} />
           <meta itemprop="description" content={`${siteName}`} />
         </span>
