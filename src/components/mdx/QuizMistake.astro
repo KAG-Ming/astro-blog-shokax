@@ -3,7 +3,7 @@ interface Props {
   dataType?: string;
 }
 
-const { dataType = "错题备注" }: Props = Astro.props;
+const { dataType = "Mistake note" }: Props = Astro.props;
 ---
 
 <div class="quiz-mistake" data-type={dataType}>

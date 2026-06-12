@@ -6,6 +6,6 @@ interface Props {
 const { answer = "" }: Props = Astro.props;
 ---
 
-<span class="quiz-gap" data-answer={answer} aria-label="填空题答案占位">
+<span class="quiz-gap" data-answer={answer} aria-label="Fill-in-the-blank answer placeholder">
   {answer}
 </span>

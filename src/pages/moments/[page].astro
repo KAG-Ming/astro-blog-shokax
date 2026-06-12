@@ -29,7 +29,7 @@ const { page } = Astro.props as {
   };
 };
 
-const pageTitle = `动态 - 第${page.currentPage}页`;
+const pageTitle = `Moments - Page ${page.currentPage}`;
 
 // 分页导航
 const paginationNavigation = {
@@ -52,7 +52,7 @@ const paginationNavigation = {
   navigation={paginationNavigation}
 >
   <Fragment slot="head">
-    <meta name="description" content="动态 - 记录生活的点滴" />
+    <meta name="description" content="Moments - short notes from life." />
   </Fragment>
 
   <MomentsContent moments={page.data} />

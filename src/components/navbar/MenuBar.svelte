@@ -12,7 +12,7 @@
 </script>
 
 <ul class="m-0 pb-2.5 pt-2.5 p-is-0 flex w-full">
-  <NavLinkItem class="menu-title" href="/" text={name} ariaLabel={`${name} 首页`} />
+  <NavLinkItem class="menu-title" href="/" text={name} ariaLabel={`${name} Homepage`} />
   {#each navLinks as { href, text, icon, dropbox } (href)}
     {#if !dropbox?.enable}
       <NavLinkItem

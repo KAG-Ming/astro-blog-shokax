@@ -15,10 +15,7 @@ const msgBackHome = t("common.home");
 const msgNoScript = t("random.noScript");
 ---
 
-<Layout pageTitle={pageTitle}>
-  <Fragment slot="head">
-    <meta name="robots" content="noindex, nofollow" />
-  </Fragment>
+<Layout pageTitle={pageTitle} robots="noindex, nofollow">
 
   <div
     class="wrap random-page"
@@ -47,7 +44,7 @@ const msgNoScript = t("random.noScript");
 <script>
   const randomPageElement = document.querySelector<HTMLElement>(".random-page");
   const postUrlsRaw = randomPageElement?.dataset.postUrls ?? "[]";
-  const msgNoPost = randomPageElement?.dataset.msgNoPost ?? "暂无可跳转文章";
+  const msgNoPost = randomPageElement?.dataset.msgNoPost ?? "No posts available";
 
   let postUrls: string[] = [];
   try {

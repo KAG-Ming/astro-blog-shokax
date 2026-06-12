@@ -312,9 +312,13 @@ const permalink = Astro.site
 // Build postMeta for Brand component
 const postMeta = {
   date: post.data.date,
+  updated: post.data.updated,
   wordCount,
   readTime,
 };
+
+const postDescription =
+  post.data.description || post.body?.slice(0, 150).replace(/\s+/g, " ");
 ---
 
 <Layout
@@ -323,19 +327,11 @@ const postMeta = {
   currentSlug={post.id}
   navigation={navigation}
   pageTitle={post.data.title}
+  pageDescription={postDescription}
   postMeta={postMeta}
   pageCover={post.data.cover}
+  robots={isEncrypted ? "noindex, nofollow" : undefined}
 >
-  <Fragment slot="head">
-    <meta
-      name="description"
-      content={post.data.description ||
-        post.body?.slice(0, 150).replace(/\s+/g, " ")}
-    />
-    {/* 加密文章添加 noindex */}
-    {isEncrypted && <meta name="robots" content="noindex, nofollow" />}
-  </Fragment>
-
   <Fragment>
     <div
       class="article wrap"

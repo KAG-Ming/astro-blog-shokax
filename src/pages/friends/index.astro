@@ -8,9 +8,9 @@ import astroConfig from "../../../astro.config.mjs";
 
 const friendsConfig = themeConfig.friends;
 const friendLinks = friendsConfig?.links ?? [];
-const pageTitle = friendsConfig?.title ?? "友链";
+const pageTitle = friendsConfig?.title || "Friends";
 const pageDescription =
-  friendsConfig?.description ?? "卡片式展示，支持站点预览与主题色点缀。";
+  friendsConfig?.description || "Recommended links and friend sites with preview cards.";
 const siteUrl = Astro.site?.toString() ?? "";
 const codeThemes = astroConfig.markdown?.shikiConfig?.themes;
 const friendsSnippet = {

@@ -66,7 +66,9 @@ export default defineConfig({
         customElement: true,
       },
     }),
-    sitemap(),
+    sitemap({
+      filter: (page) => new URL(page).pathname !== "/random/",
+    }),
     hyacinePlugin(),
     AutoImport({
       imports: [
